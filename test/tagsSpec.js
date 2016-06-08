@@ -23,7 +23,29 @@ describe('Tags', function(){
 
 			expect(result).to.deep.equal(expected);
 		})
+		it('should accept tags without values as a bool', function(){
+			var args = ['--searchContents'];
+			var result = tags.parse(args);
 
+			expect(result).to.have.a.property('searchContents', true);
+		})
+		it('should accept short formed tags', function(){
+			var args = ['-sd=4', '-h'];
+			var replacement = {
+				s: "searchContents",
+				d: "depth",
+				h: "hello"
+			}
+			var result = tags.parse(args, {}, replacement);
+
+			var expected = {
+				searchContents: true,
+				depth: 4,
+				hello: true
+			}
+
+			expect(result).to.deep.equal(expected);
+		})
 	})
 
 })
